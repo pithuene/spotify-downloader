@@ -180,7 +180,8 @@ class DownloadManager():
         else:
             youtubeHandler = YouTube(songObj.get_youtube_link())
 
-        trackAudioStream = youtubeHandler.streams.get_audio_only()
+        trackAudioStream = youtubeHandler.streams.filter(only_audio=True).order_by('bitrate').last()
+
         if not trackAudioStream:
             print("Unable to get audio stream for '" + songObj.get_youtube_link() + "'")
             return None
